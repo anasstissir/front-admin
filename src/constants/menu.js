@@ -128,7 +128,7 @@ const data = (role) => {
         subs: () => [
           {
             label: "menu.category",
-            to: "/app/communication/category",
+            to: "/app/communication/article",
             icon: "simple-icon-tag",
           },
           {

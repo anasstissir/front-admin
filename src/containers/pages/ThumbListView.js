@@ -66,20 +66,12 @@ const ThumbListView = (props) => {
             <div style={{ padding: 0 }} className="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
               <NavLink to={`${props.location.pathname}/detail?user_id=${props.item.id}`} className="w-40 w-sm-100">
                 <p className="list-item-heading mb-1 truncate">
-                  {props.item.name}
+                  {props.item.firstname} {props.item.lastname}
                 </p>
               </NavLink>
               <p className="mb-1 text-muted text-small w-40 w-sm-100">
                 {props.item.email}
               </p>
-              <p className="mb-1 text-muted text-small w-15 w-sm-100">
-                {moment(props.item.createdDate).format("DD/MM/YYYY")}
-              </p>
-              <div className=" mb-1 w-15 w-sm-100">
-                <Badge color={props.item.activated ? "success" : "warning"} pill>
-                  {props.item.activated ? "Actif" : "Inactif"}
-                </Badge>
-              </div>
             </div>
               <More className=" mb-1 " options={optionMore()} />
           </div>

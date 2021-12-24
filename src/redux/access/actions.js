@@ -29,7 +29,7 @@ const API_METHOD = { POST: 'POST', GET: 'GET', PUT: 'PUT', DELETE: 'DELETE' }
 export const getAdminList = (params) => ({
   type: GET_ADMIN_LIST,
   meta: {
-    API_CALL: 'user',
+    API_CALL: 'users',
     API_PAYLOAD: { params },
     API_SUCCESS: GET_ADMIN_LIST_SUCCESS,
     API_ERRORS: GET_ADMIN_LIST_ERROR
@@ -52,7 +52,6 @@ export const addUser = (user) => {
       meta: {
         API_METHOD: API_METHOD.POST,
         API_CALL: 'users',
-        FORM_DATA: true,
         API_PAYLOAD: user,
         API_SUCCESS: ADD_USER_SUCCESS,
         REDIRECT: '/gestion-admin',

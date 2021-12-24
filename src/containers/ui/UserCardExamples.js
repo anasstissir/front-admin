@@ -91,21 +91,17 @@ const UserCardExamples = (props) => {
                     </>
                     <CardSubtitle className=" text-large mb-1">{props.user.name}
                     </CardSubtitle>
-
-                    <Badge className=" text-one mb-4" color={props.user.activated ? "info" : 'warning'}  >
-                      {props.user.activated ? <IntlMessages id="user.actif" /> : <IntlMessages id="user.notactif" />}
-                    </Badge>
                     <Row>
                       <Colxx sm="12">
                         <CardText className="text-muted text-one mb-4"><i className="iconsminds-email" /> E-mail : {props.user.email}</CardText>
                         <CardText className="text-muted text-one mb-4"><i className="simple-icon-user" /> Nom d'utilisateur : {props.user.login}</CardText>
                       </Colxx>
                       <Colxx sm="12">
-                        <CardText className="text-muted text-one mb-4"><i className="simple-icon-user" /> Prénom : {props.user.firstName}</CardText>
-                        <CardText className="text-muted text-one mb-4"><i className="simple-icon-user" /> Nom : {props.user && props.user.lastName}</CardText>
+                        <CardText className="text-muted text-one mb-4"><i className="simple-icon-user" /> Prénom : {props.user.firstname}</CardText>
+                        <CardText className="text-muted text-one mb-4"><i className="simple-icon-user" /> Nom : {props.user.lastname}</CardText>
                       </Colxx>
                       <Colxx sm="12">
-                        <CardText className="text-muted text-one mb-4"><i className="iconsminds-security-check" /> Role : {renderRole(props.user.authorities[0])}</CardText>
+                        <CardText className="text-muted text-one mb-4"><i className="iconsminds-security-check" /> Role : </CardText>
                       </Colxx>
                     </Row>
                   </div>

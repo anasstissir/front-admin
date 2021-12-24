@@ -65,6 +65,10 @@ class App extends Component {
                   path={`${match.url}/access`}
                   render={props => <Access {...props} />}
                 />
+                <Route
+                  path={`${match.url}/communication`}
+                  render={props => <Communication {...props} />}
+                />
                 {/* <Route
                   path={`${match.url}/communication`}
                   render={props => <Communication {...props} />}

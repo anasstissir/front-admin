@@ -80,14 +80,6 @@ export default function MediaControlCard(props) {
                 className="d-flex flex-row"
                 style={{ borderRadius: 10 }}
             >
-                <NavLink to={`${props.location.pathname}/detail?comm_id=${props.item.id}`} className="d-flex">
-                    <img
-                        alt={props.item.title}
-                        src={urlPath + '/api/images/' + props.item.imageDocument.id + '/view'}
-                        style={{ maxWidth: 100, borderTopLeftRadius: 10, borderBottomLeftRadius: 10 }}
-                        className="list-thumbnail responsive border-0 card-img-left"
-                    />
-                </NavLink>
                 <div className="d-flex flex-grow-1 min-width-zero">
                     <div className="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
                         <NavLink to={`${props.location.pathname}/detail?comm_id=${props.item.id}`} className="w-40 w-sm-100">

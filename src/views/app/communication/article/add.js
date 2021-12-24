@@ -103,25 +103,14 @@ class Add extends Component {
     }
 
     handleSubmit = (values) => {
-        let bodyFormData = new FormData();
-        bodyFormData.append('title', values.title)
-        bodyFormData.append('content', values.content)
-        bodyFormData.append('categoryId', values.categoryId)
-        bodyFormData.append('beginPublishDateTime', moment(values.beginPublishDateTime).format("YYYY-MM-DDThh:mm:ss") + ".464Z")
-        bodyFormData.append('endPublishDateTime', moment(values.endPublishDateTime).format("YYYY-MM-DDThh:mm:ss") + ".464Z")
-        bodyFormData.append('status', values.status)
-        bodyFormData.append('type', values.type)
-        if (!this.props.edit) {
-            bodyFormData.append('imageFile', this.state.imageFile)
-            bodyFormData.append('videoFile', this.state.videoFile)
-            bodyFormData.append('attachedFile', this.state.attachedFile)
+        let payload = {
+            name: values.title,
+            creationDate: moment(values.beginPublishDateTime).format("YYYY-MM-DDThh:mm:ss") + ".464Z"
         }
-
         if (this.props.edit) {
-            bodyFormData.append('id', this.props.toEdit.id)
-            this.props.editIem(bodyFormData)
+            this.props.editIem({...payload, id: this.props.toEdit.id})
         } else {
-            this.props.add(bodyFormData)
+            this.props.add(payload)
         }
     };
 
@@ -136,17 +125,8 @@ class Add extends Component {
                         <TopNavigation className="justify-content-center" disableNav={false} topNavClick={this.topNavClick} />
                         <Formik
                             initialValues={{
-                                title: this.props.edit ? this.props.toEdit.title : "",
-                                content: this.props.edit ? this.props.toEdit.content : "",
-                                categoryId: this.props.edit ? this.props.toEdit.categoryId : null,
-                                imageFile: null,
-                                beginPublishDateTime: this.props.edit ? moment(this.props.toEdit.beginPublishDateTime) : null,
-                                endPublishDateTime: this.props.edit ? moment(this.props.toEdit.endPublishDateTime) : null,
-                                attachedFile: null,
-                                videoFile: null,
-                                attachedFile: null,
-                                status: this.props.edit ? this.props.toEdit.status : "SAVED",
-                                type: this.props.edit ? this.props.toEdit.type : "NEWS"
+                                title: this.props.edit ? this.props.toEdit.name : "",
+                                beginPublishDateTime: this.props.edit ? moment(this.props.toEdit.creationDate) : null,
                             }}
                             onSubmit={this.handleSubmit}>
                             {({
@@ -175,82 +155,7 @@ class Add extends Component {
                                                         </div>
                                                     ) : null}
                                                 </FormGroup>
-                                                <FormGroup className="form-group">
-                                                    <Label>
-                                                        <IntlMessages id="forms.content" />
-                                                    </Label>
-
-                                                    <Editor
-                                                        name="content"
-                                                        value={values.content || ''}
-                                                        onChange={setFieldValue}
-                                                    />
-                                                    {errors.content && touched.content ? (
-                                                        <div className="invalid-feedback d-block">
-                                                            {errors.content}
-                                                        </div>
-                                                    ) : null}
-                                                </FormGroup>
-                                                <FormGroup className="error-l-100">
-                                                    <Label>
-                                                        <IntlMessages id="forms.category" />
-                                                    </Label>
-                                                    <select
-                                                        name="categoryId"
-                                                        className="form-control"
-                                                        value={values.categoryId}
-                                                        onChange={handleChange}
-                                                        onBlur={handleBlur}
-                                                    >
-                                                        <option disabled selected>Choisir catég</option>
-                                                        {this.props.comm_list && this.props.comm_list.map(item =>
-                                                            <option key={item.id} value={item.id}>{item.categoryName}</option>
-                                                        )}
-                                                    </select>
-
-                                                    {errors.categoryId && touched.categoryId ? (
-                                                        <div className="invalid-feedback d-block">
-                                                            {errors.categoryId}
-                                                        </div>
-                                                    ) : null}
-                                                </FormGroup>
-                                                <FormGroup className="form-group">
-                                                    <Label>
-                                                        <IntlMessages id="forms.imageFile" />
-                                                    </Label>
-                                                    <Row>
-                                                        <Colxx sm="8">
-                                                            <DropzoneExample
-                                                                acceptedFiles="image/*"
-                                                                onChange={{
-                                                                    init: dz => this.dropzone = dz,
-                                                                    addedfile: this.handleImageAdded
-                                                                }} />
-                                                        </Colxx>
-                                                        <Colxx sm="4">
-
-                                                            <div className="position-absolute card-top-buttons">
-                                                                <Button outline className="icon-button">
-                                                                    <i className="simple-icon-trash" />
-                                                                </Button>
-                                                            </div>
-                                                            <img className="card-img-top" src={this.state.previewImg}></img>
-                                                        </Colxx>
-                                                    </Row>
-
-                                                    {errors.imageFile && touched.imageFile ? (
-                                                        <div className="invalid-feedback d-block">
-                                                            {errors.imageFile}
-                                                        </div>
-                                                    ) : null}
-
-                                                </FormGroup>
-                                            </Form>
-                                        </div>
-                                    </Step>
-                                    <Step id="step2" name={messages["wizard.creneaux"]}>
-                                        <div className="wizard-basic-step">
-                                            <Form>
+                                                
                                                 <FormGroup className="form-group has-float-label">
                                                     <Label className="d-block">
                                                         <IntlMessages id="form-components.beginPublishDateTime" />
@@ -267,68 +172,7 @@ class Add extends Component {
                                                         </div>
                                                     ) : null}
                                                 </FormGroup>
-                                                <FormGroup className="form-group has-float-label">
-                                                    <Label className="d-block">
-                                                        <IntlMessages id="form-components.endPublishDateTime" />
-                                                    </Label>
-                                                    <FormikDatePicker
-                                                        name="endPublishDateTime"
-                                                        value={values.endPublishDateTime}
-                                                        onChange={setFieldValue}
-                                                        onBlur={setFieldTouched}
-                                                    />
-                                                    {errors.endPublishDateTime && touched.endPublishDateTime ? (
-                                                        <div className="invalid-feedback d-block">
-                                                            {errors.endPublishDateTime}
-                                                        </div>
-                                                    ) : null}
-                                                </FormGroup>
-                                            </Form>
-                                        </div>
-
-                                    </Step>
-                                    <Step id="step3" name={messages["wizard.attachement"]}>
-                                        <div className="wizard-basic-step">
-                                            <Form>
-                                                <FormGroup>
-                                                    <Label>
-                                                        <IntlMessages id="forms.videoFile" />
-                                                    </Label>
-                                                    <DropzoneExample
-                                                        acceptedFiles="video/*"
-                                                        onChange={{
-                                                            init: dz => this.dropzone = dz,
-                                                            addedfile: this.handleVideoAdded
-                                                        }} />
-                                                    {errors.videoFile && touched.videoFile ? (
-                                                        <div className="invalid-feedback d-block">
-                                                            {errors.videoFile}
-                                                        </div>
-                                                    ) : null}
-                                                </FormGroup>
-                                                <FormGroup>
-                                                    <Label>
-                                                        <IntlMessages id="forms.attachedFile" />
-                                                    </Label>
-                                                    <DropzoneExample
-                                                        acceptedFiles="image/*, application/pdf"
-                                                        onChange={{
-                                                            init: dz => this.dropzone = dz,
-                                                            addedfile: this.handleFileAdded
-                                                        }} />
-                                                    {errors.attachedFile && touched.attachedFile ? (
-                                                        <div className="invalid-feedback d-block">
-                                                            {errors.attachedFile}
-                                                        </div>
-                                                    ) : null}
-                                                </FormGroup>
-                                            </Form>
-                                        </div>
-                                    </Step>
-                                    <Step id="step4" hideTopNav={true}>
-                                        <div className="wizard-basic-step text-center">
-                                            <h2 className="mb-2"><IntlMessages id="wizard.confirme-submit" /></h2>
-                                            <Form>
+                                                
                                                 <FormGroup>
                                                     <Button color="primary" type="submit">
                                                         Sauvgarder
@@ -339,14 +183,7 @@ class Add extends Component {
                                     </Step>
                                 </Steps>
                             )}
-
                         </Formik>
-                        <BottomNavigation
-                            onClickNext={this.onClickNext}
-                            onClickPrev={this.onClickPrev}
-                            className="justify-content-center"
-                            prevLabel={messages["wizard.prev"]}
-                            nextLabel={messages["wizard.next"]} />
                     </Wizard>
                 </CardBody>
             </Card>)

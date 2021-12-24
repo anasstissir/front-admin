@@ -42,21 +42,17 @@ class FormikCustomComponents extends Component {
 
 
   handleSubmit = (values) => {
-    let bodyFormData = new FormData();
-    bodyFormData.append('login', values.username)
-    bodyFormData.append('firstName', values.firstname)
-    bodyFormData.append('lastName', values.lastname)
-    bodyFormData.append('email', values.email)
-    bodyFormData.append('langKey', values.lang)
-    bodyFormData.append('authorities', values.role)
-    bodyFormData.append('activated', values.statut)
-    if (this.state.profilePicture)
-      bodyFormData.append('photoFile', this.state.profilePicture)
+    let payload = {
+      login: values.username,
+      firstname: values.firstname,
+      lastname: values.lastname,
+      email: values.email
+    }
     if(this.props.edit){
-      bodyFormData.append('id', this.props.toEdit.id)
-      this.props.editUser(bodyFormData)
+
+      this.props.editUser({...payload, id: this.props.toEdit.id})
     }else{
-      this.props.onAddUser(bodyFormData)
+      this.props.onAddUser(payload)
     }
   };
 
@@ -73,8 +69,8 @@ class FormikCustomComponents extends Component {
 
               <Formik
                 initialValues={{
-                  firstname: this.props.edit && this.props.toEdit ? this.props.toEdit.firstName : "",
-                  lastname: this.props.edit && this.props.toEdit ? this.props.toEdit.lastName : "",
+                  firstname: this.props.edit && this.props.toEdit ? this.props.toEdit.firstname : "",
+                  lastname: this.props.edit && this.props.toEdit ? this.props.toEdit.lastname : "",
                   username: this.props.edit && this.props.toEdit ? this.props.toEdit.login : "",
                   email: this.props.edit && this.props.toEdit ? this.props.toEdit.email : "",
                   lang: this.props.edit && this.props.toEdit ? this.props.toEdit.langKey : "fr",
@@ -218,27 +214,6 @@ class FormikCustomComponents extends Component {
                           ) : null}
                         </FormGroup>
                       </Colxx>
-                      <Colxx md="6">
-                        <FormGroup className="error-l-100">
-                          <Label>Select </Label>
-                          <select
-                            name="statut"
-                            className="form-control"
-                            value={values.statut}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                          >
-                            <option value={true}>Actif</option>
-                            <option value={false}>Innactif</option>
-                          </select>
-
-                          {errors.statut && touched.statut ? (
-                            <div className="invalid-feedback d-block">
-                              {errors.statut}
-                            </div>
-                          ) : null}
-                        </FormGroup>
-                      </Colxx>
                     </Row>
                     <FormGroup className="error-l-100">
                       <Label>
@@ -253,8 +228,7 @@ class FormikCustomComponents extends Component {
                       >
                         <option disabled selected value="">Choisir le role</option>
                         <option value="ROLE_ADMIN">Admin</option>
-                        <option value="ROLE_EDITOR">Editeur</option>
-                        <option value="ROLE_USER">Utilisateur</option>
+                        <option value="ROLE_USER">Etudiant</option>
                       </select>
 
                       {errors.role && touched.role ? (

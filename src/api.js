@@ -4,13 +4,13 @@ function call(meta, headers) {
   const method = meta.API_METHOD ? meta.API_METHOD : 'GET';
   switch (method) {
     case 'GET':
-      return axios.get('localhost:8080/' + meta.API_CALL, meta.API_PAYLOAD)
+      return axios.get('http://localhost:8080/' + meta.API_CALL, meta.API_PAYLOAD)
     case 'POST':
-      return axios.post('localhost:8080/' + meta.API_CALL, meta.API_PAYLOAD, headers)
+      return axios.post('http://localhost:8080/' + meta.API_CALL, meta.API_PAYLOAD, headers)
     case 'PUT':
-      return axios.put('localhost:8080/' + meta.API_CALL, meta.API_PAYLOAD, headers)
+      return axios.put('http://localhost:8080/' + meta.API_CALL, meta.API_PAYLOAD, headers)
     case 'DELETE':
-      return axios.delete('localhost:8080/' + meta.API_CALL)
+      return axios.delete('http://localhost:8080/' + meta.API_CALL)
   }
 }
 

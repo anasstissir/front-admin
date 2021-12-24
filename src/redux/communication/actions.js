@@ -195,7 +195,7 @@ export const getArticles = (params) => {
   return {
     type: Communication.GET_COMMUNICATIONS,
     meta: {
-      API_CALL: 'communications',
+      API_CALL: 'clubs',
       API_PAYLOAD: { params },
       API_SUCCESS: Communication.GET_COMMUNICATIONS_SUCCESS,
       API_ERRORS: Communication.GET_COMMUNICATIONS_ERROR
@@ -207,7 +207,7 @@ export const getArticleById = (id) => {
   return {
     type: Communication.GET_COMMUNICATION,
     meta: {
-      API_CALL: 'communications/'+id,
+      API_CALL: 'clubs/'+id,
       API_SUCCESS: Communication.GET_COMMUNICATION_SUCCESS,
       API_ERRORS: Communication.GET_COMMUNICATION_ERROR
     }
@@ -220,14 +220,13 @@ export const addArticle = (article) => {
       type: ADD_NOTIFICATION,
       meta: {
         API_METHOD: API_METHOD.POST,
-        API_CALL: 'communications',
+        API_CALL: 'clubs',
         API_PAYLOAD: article,
-        FORM_DATA: true,
         API_SUCCESS: ADD_NOTIFICATION_SUCCESS,
         API_ERRORS: ADD_NOTIFICATION_ERROR
       },
       notification: {
-        success : "Article ajouté avec succès"
+        success : "Club ajouté avec succès"
       }
     }
   )
@@ -239,14 +238,13 @@ export const editArticle = (article) => {
       type: EDIT_NOTIFICATION,
       meta: {
         API_METHOD: API_METHOD.PUT,
-        API_CALL: 'communications',
+        API_CALL: 'clubs',
         API_PAYLOAD: article,
-        FORM_DATA: true,
         API_SUCCESS: EDIT_NOTIFICATION_SUCCESS,
         API_ERRORS: EDIT_NOTIFICATION_ERROR
       },
       notification: {
-        success : "Article modifié avec succès"
+        success : "Club modifié avec succès"
       }
     }
   )
@@ -258,12 +256,12 @@ export const deleteArticle = (article_id) => {
       type: DELETE_NOTIFICATION,
       meta: {
         API_METHOD: API_METHOD.DELETE,
-        API_CALL: 'communications/' + article_id,
+        API_CALL: 'clubs/' + article_id,
         API_SUCCESS: DELETE_NOTIFICATION_SUCCESS,
         API_ERRORS: DELETE_NOTIFICATION_ERROR
       },
       notification: {
-        success : "Article supprimé avec succès"
+        success : "Club supprimé avec succès"
       }
     }
   )
