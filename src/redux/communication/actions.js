@@ -117,7 +117,7 @@ export const getNotification = (params) => {
   return {
     type: GET_NOTIFICATIONS,
     meta: {
-      API_CALL: 'notifications',
+      API_CALL: 'meets',
       API_PAYLOAD: { params },
       API_SUCCESS: GET_NOTIFICATIONS_SUCCESS,
       API_ERRORS: GET_NOTIFICATIONS_ERROR
@@ -129,7 +129,7 @@ export const getNotificationById = (id) => {
   return {
     type: GET_NOTIFICATION,
     meta: {
-      API_CALL: 'notifications/'+id,
+      API_CALL: 'meets/'+id,
       API_SUCCESS: GET_NOTIFICATION_SUCCESS,
       API_ERRORS: GET_NOTIFICATION_ERROR
     }
@@ -142,7 +142,7 @@ export const addNotification = (notif) => {
       type: ADD_NOTIFICATION,
       meta: {
         API_METHOD: API_METHOD.POST,
-        API_CALL: 'notifications',
+        API_CALL: 'meets',
         API_PAYLOAD: notif,
         API_SUCCESS: ADD_NOTIFICATION_SUCCESS,
         API_ERRORS: ADD_NOTIFICATION_ERROR
@@ -300,7 +300,6 @@ export const addEvent= (event) => {
         API_METHOD: API_METHOD.POST,
         API_CALL: 'events',
         API_PAYLOAD: event,
-        FORM_DATA: true,
         API_SUCCESS: Communication.ADD_COMMUNICATION_SUCCESS,
         API_ERRORS: Communication.ADD_COMMUNICATION_ERROR
       },

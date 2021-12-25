@@ -1,10 +1,11 @@
 import Add from './add'
 import { connect } from 'react-redux'
-import { addEvent, getEventById, publishEvent, notifyEvent, editEvent } from '../../../../redux/communication/actions'
+import { addEvent, getEventById, publishEvent, notifyEvent, editEvent, getArticles } from '../../../../redux/communication/actions'
 
 const mapStateToProps = state => {
     return {
         comm_list: state.communication.list_result && state.communication.list_result['data'],
+        clubs: state.communication.comm_result && state.communication.comm_result['data'],
         isAdded: state.communication.isCompleted,
         isLoadingForEdit: state.communication.displayed && state.communication.displayed['data'],
         isLoading: state.communication['loading'],
@@ -19,6 +20,7 @@ const mapDispatchToProps = dispatch => {
         add: (payload) => dispatch(addEvent(payload)),
         getById: (id) => dispatch(getEventById(id)),
         editIem: (payload) => dispatch(editEvent(payload)),
+        getInitData: () => dispatch(getArticles())
     }
 }
 

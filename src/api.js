@@ -52,7 +52,7 @@ export default store => next => action => {
           if (action.notification) {
             store.dispatch({
               type: 'NOTIFICATION_ERROR',
-              message: error.response.data.message,
+              message: error.response.data?.message,
               uuid: uuidv4()
             });
           }

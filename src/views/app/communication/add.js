@@ -10,8 +10,11 @@ import {
     Button,
     CardTitle
 } from "reactstrap";
+import moment from "moment";
 import IntlMessages from "../../../helpers/IntlMessages";
 import { Colxx } from "../../../components/common/CustomBootstrap";
+
+import { FormikDatePicker } from "../../../containers/form-validations/FormikFields";
 import Editor from '../../util/editor'
 
 const SignupSchema = Yup.object().shape({
@@ -28,21 +31,17 @@ class FormikCustomWithTopLabels extends Component {
     }
 
     handleSubmit = (values) => {
-        if (this.props.notif) {
-            let payload = { content: values.description, title: values.categoryName }
-            if (this.props.editable) {
-                this.props.edit({ ...payload, id: this.props.toEdit.id })
-            } else {
-
-                this.props.add(payload)
-            }
+        let payload = {
+            title: values.title,
+            club: parseInt(values.responsible),
+            timeMeeting: moment(values.startTime).format("YYYY-MM-DDThh:mm:ss") + ".464Z",
+            place: values.address,
+            description: values.content,
+        }
+        if (this.props.edit) {
+            this.props.add({ ...payload, id: this.props.toEdit.id })
         } else {
-            if (this.props.editable) {
-                this.props.edit({ ...values, id: this.props.toEdit.id })
-            } else {
-
-                this.props.add(values)
-            }
+            this.props.add(payload)
         }
 
     };
@@ -59,53 +58,89 @@ class FormikCustomWithTopLabels extends Component {
                                 </CardTitle>
 
                                 <Formik
-                                    initialValues={this.props.notif ?
-                                        {
-                                            categoryName: this.props.editable && this.props.toEdit ? this.props.toEdit.title : "",
-                                            description: this.props.editable && this.props.toEdit ? this.props.toEdit.content : "",
-                                        }
-                                        :
-
-                                        {
-                                            categoryName: this.props.editable && this.props.toEdit ? this.props.toEdit.categoryName : "",
-                                            description: this.props.editable && this.props.toEdit ? this.props.toEdit.description : "",
-                                        }
-                                    }
-                                    validationSchema={SignupSchema}
                                     onSubmit={this.handleSubmit}
                                 >
                                     {({
+                                        handleSubmit,
+                                        setFieldValue,
+                                        setFieldTouched,
+                                        handleChange,
+                                        handleBlur,
+                                        values,
                                         errors,
                                         touched,
-                                        handleChange,
-                                        setFieldValue,
-                                        values,
-                                        handleBlur
+                                        isSubmitting
                                     }) => (
                                         <Form className="av-tooltip tooltip-label-bottom">
-                                            <FormGroup className="form-group has-float-label">
+                                            <FormGroup>
                                                 <Label>
-                                                    <IntlMessages id="forms.categoryName" />
+                                                    <IntlMessages id="forms.title" />
                                                 </Label>
-                                                <Field className="form-control" name="categoryName" />
-                                                {errors.categoryName && touched.categoryName ? (
+                                                <Field className="form-control" name="title" />
+                                                {errors.title && touched.title ? (
                                                     <div className="invalid-feedback d-block">
-                                                        {errors.categoryName}
+                                                        {errors.title}
                                                     </div>
                                                 ) : null}
                                             </FormGroup>
                                             <FormGroup className="form-group has-float-label">
                                                 <Label>
-                                                    <IntlMessages id="forms.description" />
+                                                    <IntlMessages id="forms.responsible" />
                                                 </Label>
-                                                <Editor
-                                                    name="description"
-                                                    value={values.description}
-                                                    onChange={setFieldValue}
-                                                />
-                                                {errors.description && touched.description ? (
+                                                <select
+                                                    name="responsible"
+                                                    className="form-control"
+                                                    value={values.responsible}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+
+                                                >
+                                                    <option disabled selected>Choisir Club</option>
+                                                        {this.props.clubs?.map((item) =>
+                                                            <option key={item.id} value={item.id}>{item.name}</option>
+                                                        )}
+                                                </select>
+                                            </FormGroup>
+                                            <FormGroup>
+                                                <Label>
+                                                    <IntlMessages id="forms.address" />
+                                                </Label>
+                                                <Field className="form-control" name="address" />
+                                                {errors.address && touched.address ? (
                                                     <div className="invalid-feedback d-block">
-                                                        {errors.description}
+                                                        {errors.address}
+                                                    </div>
+                                                ) : null}
+                                            </FormGroup>
+                                            <FormGroup>
+                                                <Label>
+                                                    <IntlMessages id="forms.content" />
+                                                </Label>
+                                                <Field className="form-control" name="content" />
+                                                {errors.content && touched.content ? (
+                                                    <div className="invalid-feedback d-block">
+                                                        {errors.content}
+                                                    </div>
+                                                ) : null}
+                                            </FormGroup>
+                                            <FormGroup className="form-group has-float-label">
+                                                <Label className="d-block">
+                                                    <IntlMessages id="form-components.start-time" />
+                                                </Label>
+                                                <FormikDatePicker
+                                                    name="startTime"
+                                                    id="startTime"
+                                                    onChange={setFieldValue}
+                                                    onBlur={setFieldTouched}
+                                                    value={values.startTime}
+                                                    showTimeSelect
+                                                    timeFormat="HH:mm"
+                                                    timeIntervals={15}
+                                                    dateFormat="LLL"
+                                                    timeCaption="Time" />
+                                                {errors.startTime && touched.startTime ? (
+                                                    <div className="invalid-feedback d-block">
+                                                        {errors.startTime}
                                                     </div>
                                                 ) : null}
                                             </FormGroup>

@@ -8,6 +8,7 @@ import { withRouter } from "react-router-dom";
 class AddNotif extends Component {
 
   componentDidMount() {
+    this.props.getInitData()
     if (this.props.editable) {
       const idCode = new URLSearchParams(this.props.location.search);
       const id = idCode.get('id');
@@ -38,10 +39,9 @@ class AddNotif extends Component {
                 </Row>
                 <Add
                   add={this.props.add}
+                  clubs={this.props.clubs}
                   comm_list={this.props.comm_list}
-                  edit={this.props.edit}
                   editable={this.props.editable}
-                  toEdit={this.props.toEdit}
                   notif
                   match={this.props.match} />
               </Colxx>

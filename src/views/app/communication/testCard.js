@@ -88,27 +88,14 @@ export default function MediaControlCard(props) {
                             </p>
                         </NavLink>
                         <p className="mb-1 text-muted text-small w-15 w-sm-100">
-                            {moment(props.item.beginPublishDateTime).format("DD/MM/YYYY")}
+                            {moment(props.item.startDate).format("DD/MM/YYYY")}
                         </p>
                         <p className="mb-1 text-muted text-small w-15 w-sm-100">
-                            {moment(props.item.endPublishDateTime).format("DD/MM/YYYY")}
+                            {moment(props.item.endDate).format("DD/MM/YYYY")}
                         </p>
-                        <div className="w-15 w-sm-100">
-                            <Badge color={props.item.status === "SAVED" ? "info" : "success"} pill>
-                                {formatStatus(props.item.status)}
-                            </Badge>
-                        </div>
-                        {props.item.category && <div className="w-15 w-sm-100">
-                            <Badge color={renderColor(props.item.category.categoryName)} pill>
-                                {props.item.category.categoryName.substring(0, 15)}
-                                {props.item.category.categoryName.length > 15 ? "..." : ""}
-                            </Badge>
-                        </div>}
-                        {props.item.eventDateTime && <div className="w-15 w-sm-100">
-                            <Badge color={labelColor(props.item.eventDateTime)} pill>
-                                {labelUpcoming(props.item.eventDateTime)}
-                            </Badge>
-                        </div>}
+                        <p className="mb-1 text-muted text-small w-15 w-sm-100">
+                        {props.item?.club?.name}
+                        </p>
                     </div>
                 </div>
                 <More options={optionMore()} />
