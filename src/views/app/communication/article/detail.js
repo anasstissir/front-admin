@@ -196,7 +196,7 @@ export default class Articles extends Component {
                                                             <Colxx sm="12">
                                                                 <CardBody>
                                                                
-                                                                    <h2 className="font-weight-bold">{this.props.displayed.title}</h2>
+                                                                    <h2 className="font-weight-bold">{this.props.displayed.name}</h2>
                                                                     <span>
                                                                         <Badge color="outline-primary text-small mb-4 mr-1" pill>
                                                                             {this.props.displayed.status}

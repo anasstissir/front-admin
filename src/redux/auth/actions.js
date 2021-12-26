@@ -20,7 +20,7 @@ export const loginUser = (user, history) => ({
   type: LOGIN_USER,
   meta:{
     API_METHOD: API_METHOD.POST,
-    API_CALL: 'authenticate',
+    API_CALL: 'api/authenticate',
     API_PAYLOAD: { ...user, "rememberMe": true },
     API_SUCCESS: LOGIN_USER_SUCCESS,
     API_ERRORS: LOGIN_USER_ERROR

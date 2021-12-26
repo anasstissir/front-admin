@@ -55,12 +55,12 @@ class App extends Component {
                 <Redirect
                   exact
                   from={`${match.url}/`}
-                  to={`${match.url}/access`}
+                  to={`${match.url}/home`}
                 />
-                {/* <Route
-                  path={`${match.url}/kpi`}
+                 <Route
+                  path={`${match.url}/home`}
                   render={props => <Kpi {...props} />}
-                /> */}
+                /> 
                 <Route
                   path={`${match.url}/access`}
                   render={props => <Access {...props} />}

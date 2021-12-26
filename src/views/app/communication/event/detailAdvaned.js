@@ -142,21 +142,6 @@ class DetailsPages extends Component {
                                         <IntlMessages id="pages.details" />
                                     </NavLink>
                                 </NavItem>
-                                <NavItem>
-                                    <NavLink
-                                        location={{}}
-                                        to={this.props.location}
-                                        className={classnames({
-                                            active: this.state.activeFirstTab === "2",
-                                            "nav-link": true
-                                        })}
-                                        onClick={() => {
-                                            this.toggleTab("2");
-                                        }}
-                                    >
-                                        <IntlMessages id="pages.joint" />
-                                    </NavLink>
-                                </NavItem>
                             </Nav>
 
                             <TabContent activeTab={this.state.activeFirstTab}>
@@ -164,11 +149,6 @@ class DetailsPages extends Component {
                                     <Row>
                                         <Colxx xxs="12" lg="4" className="mb-4">
                                             <Card className="mb-4">
-                                                <img
-                                                    src={this.props.imageDisplayed}
-                                                    alt={this.props.displayed.title}
-                                                    className="card-img-top"
-                                                />
 
                                                 <CardBody>
                                                     <p className="text-muted text-small mb-2">
@@ -184,47 +164,15 @@ class DetailsPages extends Component {
                                                     </div>
 
                                                     <p className="text-muted text-small mb-2">
-                                                        <IntlMessages id="pages.author" />
-                                                    </p>
-                                                    <p className="mb-3">{this.props.displayed.authorFirstName + ' ' + this.props.displayed.authorLastName}</p>
-                                                    <p className="text-muted text-small mb-2">
-                                                        <IntlMessages id="pages.status" />
-                                                    </p>
-                                                    <div className="mb-3">
-                                                        <p className="d-sm-inline-block mb-1">
-                                                            <Badge color="outline-secondary mb-1 mr-1" pill>
-                                                                {this.props.displayed.status}
-                                                            </Badge>
-                                                        </p>
-                                                    </div>
-
-                                                    <p className="text-muted text-small mb-2">
                                                         <IntlMessages id="pages.time" />
                                                     </p>
                                                     <div className="mb-3">
                                                         <p className="d-sm-inline-block mb-1">
                                                             <Badge color="outline-secondary mb-1 mr-1" pill>
-                                                                {moment(this.props.displayed.startDateTime).format("DD/MM/YYYY HH:mm") + ' -> ' + moment(this.props.displayed.endDateTime).format("DD/MM/YYYY HH:mm")}
+                                                                {moment(this.props.displayed.startDate).format("DD/MM/YYYY HH:mm") + ' -> ' + moment(this.props.displayed.endDate).format("DD/MM/YYYY HH:mm")}
                                                             </Badge>
                                                         </p>
                                                     </div>
-
-                                                    <p className="text-muted text-small mb-2">
-                                                        <IntlMessages id="pages.creation-date" />
-                                                    </p>
-                                                    <p>{moment(this.props.displayed.createdDate).format("DD/MM/YYYY")}</p>
-
-
-                                                    <p className="text-muted text-small mb-2">
-                                                        <IntlMessages id="pages.publish-date" />
-                                                    </p>
-                                                    <p>{moment(this.props.displayed.beginPublishDateTime).format("DD/MM/YYYY HH:mm")}</p>
-
-
-                                                    <p className="text-muted text-small mb-2">
-                                                        <IntlMessages id="pages.end-publish" />
-                                                    </p>
-                                                    <p>{moment(this.props.displayed.endPublishDateTime).format("DD/MM/YYYY HH:mm")}</p>
                                                 </CardBody>
                                             </Card>
                                         </Colxx>
@@ -235,7 +183,7 @@ class DetailsPages extends Component {
 
                                                     <h2 className="font-weight-bold">{this.props.displayed.title}</h2>
                                                     <br />
-                                                    <p>{ReactHtmlParser(this.props.displayed.content)}</p>
+                                                    <p>{ReactHtmlParser(this.props.displayed.description)}</p>
                                                     <br />
                                                 </CardBody>
                                             </Card>
@@ -258,84 +206,15 @@ class DetailsPages extends Component {
                                                 </Colxx>
                                                 <Colxx sm="4">
                                                     <IconCard
-                                                        icon="iconsminds-conference"
-                                                        title="pages.participants"
-                                                        classNameText="text-small"
-                                                        value={this.props.displayed.participationsSize || 0}
-                                                    />
-                                                </Colxx>
-                                            </Row>
-                                            <Row className="icon-cards-row mb-2">
-                                                <Colxx sm="4">
-                                                    <IconCard
                                                         icon="iconsminds-location-2"
                                                         title="pages.location"
                                                         classNameText="text-small"
-                                                        value={this.props.displayed.eventAdress}
-                                                    />
-                                                </Colxx>
-                                                <Colxx sm="4">
-                                                    <IconCard
-                                                        icon="simple-icon-like"
-                                                        title="pages.reaction"
-                                                        classNameText="text-small"
-                                                        value={this.props.displayed.likesSize || 0}
-                                                    />
-                                                </Colxx>
-                                                <Colxx sm="4">
-                                                    <IconCard
-                                                        icon="simple-icon-eye"
-                                                        title="pages.view"
-                                                        classNameText="text-small"
-                                                        value={this.props.displayed.viewsSize || 0}
+                                                        value={this.props.displayed.place}
                                                     />
                                                 </Colxx>
                                             </Row>
                                         </Colxx>
                                     </Row>
-                                </TabPane>
-                                <TabPane tabId="2">
-                                    <Card className="mb-4">
-                                        <CardBody>
-                                            <p className="text-muted text-small mb-6">
-                                                <IntlMessages id="pages.file" />
-                                            </p>
-                                            {this.props.displayed.attachedFileDocumentId ?
-
-                                                <Row className="icon-cards-row mb-2">
-                                                    <Colxx sm="3">
-                                                        <a target="_blank" href={urlPath + "/api/pdfs/" + this.props.displayed.attachedFileDocumentId + "/view"}>
-                                                            <IconCard
-                                                                icon="iconsminds-file"
-                                                                title="pages.download"
-                                                                classNameText="text-small"
-                                                            />
-                                                        </a>
-
-                                                    </Colxx>
-                                                </Row>
-                                                :
-
-                                                <p className="text-one mb-6">
-                                                    <IntlMessages id="pages.no-attached-file" />
-                                                </p>
-                                            }
-
-                                            <p className="text-muted text-small mb-2">
-                                                <IntlMessages id="pages.videos" />
-                                            </p>
-                                            {this.props.displayed.videoFileDocumentId ?
-                                                <video width={'100%'} height="50%" controls>
-                                                    <source src={urlPath + "/api/videos/" + this.props.displayed.videoFileDocumentId + "/view"} type="video/mp4" />
-                                                Your browser does not support the video tag.
-                                            </video>
-                                                :
-                                                <p className="text-one mb-6">
-                                                    <IntlMessages id="pages.no-video-file" />
-                                                </p>
-                                            }
-                                        </CardBody>
-                                    </Card>
                                 </TabPane>
                             </TabContent>
                         </Colxx>

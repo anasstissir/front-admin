@@ -69,8 +69,8 @@ const data = (role) => {
       {
         id: "kpi",
         icon: "iconsminds-statistic",
-        label: "menu.kpi",
-        to: "/app/kpi",
+        label: "menu.home",
+        to: "/app",
         subs: () => [],
       },
       {
@@ -78,47 +78,13 @@ const data = (role) => {
         icon: "iconsminds-business-man-woman",
         label: "menu.gestion-rh",
         to: "/app/gestionAdmin",
-        subs: () => {
-          let subList = [];
-          switch (role) {
-            case "ROLE_ADMIN":
-              subList = [
-                {
-                  label: "menu.data-listUser",
-                  to: "/app/gestionUser",
-                  icon: "simple-icon-user",
-                },
-                {
-                  label: "menu.data-listEditor",
-                  to: "/app/gestionEditor",
-                  icon: "simple-icon-user-follow",
-                },
-              ];
-              break;
-            case "ROLE_SUPER_ADMIN":
-              subList = [
-                {
-                  label: "menu.data-listAdmin",
-                  to: "/app/access/gestion-admin",
-                  icon: "simple-icon-people",
-                },
-                {
-                  label: "menu.data-listUser",
-                  to: "/app/access/gestion-user",
-                  icon: "simple-icon-user",
-                },
-                {
-                  label: "menu.data-listEditor",
-                  to: "/app/access/gestion-editor",
-                  icon: "simple-icon-user-follow",
-                },
-              ];
-              break;
-            default:
-              subList = [];
+        subs: () => [
+          {
+            label: "menu.data-listAdmin",
+            to: "/app/access/gestion-admin",
+            icon: "simple-icon-people",
           }
-          return subList;
-        },
+        ],
       },
       {
         id: "communication",

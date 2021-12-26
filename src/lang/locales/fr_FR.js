@@ -150,7 +150,8 @@ module.exports = {
   "menu.kpi": "Indicateurs",
   "menu.gestion-rh": "Gestion des accès",
   "menu.access" : "Gestion des accès",
-  "menu.data-listAdmin": "Gestion des admins",
+  "menu.home" : "Accueil",
+  "menu.data-listAdmin": "Gestion des utilisateurs",
   "menu.data-listUser": "Gestion des comptes",
   "menu.gestion-user": "Gestion des comptes",
   "menu.data-listEditor": "Gestion des Eleves",
@@ -648,11 +649,11 @@ module.exports = {
   "input-groups.custom-file-input": "Custom File Input",
 
   /* 07.14.Jumbotron */
-  "jumbotron.hello-world": "Hello, world!",
+  "jumbotron.hello-world": "Bonjour",
   "jumbotron.lead":
-    "This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.",
+    "Cette plateforme est pour les admin des club de l'UIR",
   "jumbotron.lead-detail":
-    "It uses utility classes for typography and spacing to space content out within the larger container.",
+    "Vous pouvez gerer les utilisateurs, clubs, reunions et les evenments",
   "jumbotron.learn-more": "Learn more",
 
   /* 07.15.Modal */

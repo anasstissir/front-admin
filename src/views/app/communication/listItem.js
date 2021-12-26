@@ -53,17 +53,17 @@ const ThumbListView = (props) => {
               <div style={{ padding: 0 }} className="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
 
                 <p className="list-item-heading mb-0 mt-2 w-40 w-sm-100 truncate">
-                  {props.notification ? props.item.title : props.item.categoryName}
+                  {props.item.title}
 
                   <IconButton aria-label="eye" onClick={changeToggle}>
                     <VisibilityIcon fontSize="small" />
                   </IconButton>
                 </p>
                 <p className="mb-0 mt-2 text-muted text-small w-40 w-sm-100">
-                  {props.item.createdBy}
+                  {props.item.place}
                 </p>
                 <p className="mb-0 mt-2 text-muted text-small w-15 w-sm-100">
-                  {moment(props.item.createdDate).format("DD/MM/YYYY")}
+                  {moment(props.item.timeMeeting).format("DD/MM/YYYY")}
                 </p>
               </div>
               <More options={optionMore()} />
@@ -72,7 +72,7 @@ const ThumbListView = (props) => {
           <Collapse isOpen={toggle} style={{ padding: 2 }}>
             <div className="border mt-1">
               <p className="mb-1">
-                {ReactHtmlParser(props.notification ? props.item.content : props.item.description)}
+                {ReactHtmlParser(props.item.description)}
               </p>
             </div>
           </Collapse>

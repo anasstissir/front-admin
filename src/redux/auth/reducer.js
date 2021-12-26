@@ -15,27 +15,7 @@ import {
 } from '../actions';
 
 const INIT_STATE = {
-    user: {
-        principal: {
-          username: 'superadmin',
-          authorities: [
-            {
-              authority: 'ROLE_SUPER_ADMIN'
-            }
-          ],
-          firstName: 'Ayoub',
-          lastName: 'Chaaba',
-          email: 'ayoub@gmail.com',
-          active: true,
-          tac: true,
-          idTac: 152,
-          langKey: 'fr',
-          firstLogin: false,
-          tacDocument: 6,
-          photoDocument: 75152
-        },
-        id_token: 'eyJhbGciOiJIUzUxMiJ9'
-      },
+    user: null,
     forgotUserMail: '',
     newPassword: '',
     resetPasswordCode: '',

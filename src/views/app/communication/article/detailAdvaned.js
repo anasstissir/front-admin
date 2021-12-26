@@ -101,7 +101,7 @@ class DetailsPages extends Component {
                     <Modal isOpen={this.state.showModal} close={this.toggle} action={this.action} />
                     <Row>
                         <Colxx xxs="12">
-                            <h1>Détail Article</h1>
+                            <h1>Détail</h1>
                             <div className="text-zero top-right-button-container">
                                 <UncontrolledDropdown>
                                     <DropdownToggle
@@ -142,21 +142,6 @@ class DetailsPages extends Component {
                                         <IntlMessages id="pages.details" />
                                     </NavLink>
                                 </NavItem>
-                                <NavItem>
-                                    <NavLink
-                                        location={{}}
-                                        to={this.props.location}
-                                        className={classnames({
-                                            active: this.state.activeFirstTab === "2",
-                                            "nav-link": true
-                                        })}
-                                        onClick={() => {
-                                            this.toggleTab("2");
-                                        }}
-                                    >
-                                        <IntlMessages id="pages.joint" />
-                                    </NavLink>
-                                </NavItem>
                             </Nav>
 
                             <TabContent activeTab={this.state.activeFirstTab}>
@@ -164,17 +149,12 @@ class DetailsPages extends Component {
                                     <Row>
                                         <Colxx xxs="12" lg="4" className="mb-4">
                                             <Card className="mb-4">
-                                                <img
-                                                    src={this.props.imageDisplayed}
-                                                    alt={this.props.displayed.title}
-                                                    className="card-img-top"
-                                                />
 
                                                 <CardBody>
                                                     <p className="text-muted text-small mb-2">
                                                         <IntlMessages id="pages.title" />
                                                     </p>
-                                                    <p className="mb-3">{this.props.displayed.title} </p>
+                                                    <p className="mb-3">{this.props.displayed.title || this.props.displayed.name} </p>
 
                                                     <p className="text-muted text-small mb-2">
                                                         <IntlMessages id="pages.rating" />
@@ -182,63 +162,18 @@ class DetailsPages extends Component {
                                                     <div className="mb-3">
                                                         <Rating total={5} rating={4} interactive={false} />
                                                     </div>
-
-                                                    <p className="text-muted text-small mb-2">
-                                                        <IntlMessages id="pages.author" />
-                                                    </p>
-                                                    <p className="mb-3">{this.props.displayed.authorFirstName + ' ' + this.props.displayed.authorLastName}</p>
-                                                    <p className="text-muted text-small mb-2">
-                                                        <IntlMessages id="pages.status" />
-                                                    </p>
-                                                    <div className="mb-3">
-                                                        <p className="d-sm-inline-block mb-1">
-                                                            <Badge color="outline-secondary mb-1 mr-1" pill>
-                                                                {this.props.displayed.status}
-                                                            </Badge>
-                                                        </p>
-                                                    </div>
-
-                                                    <p className="text-muted text-small mb-2">
-                                                        <IntlMessages id="pages.category" />
-                                                    </p>
-                                                    <div className="mb-3">
-                                                        <p className="d-sm-inline-block mb-1">
-                                                            <Badge color="outline-secondary mb-1 mr-1" pill>
-                                                                {this.props.displayed.categoryName}
-                                                            </Badge>
-                                                        </p>
-                                                    </div>
+                                                    
 
                                                     <p className="text-muted text-small mb-2">
                                                         <IntlMessages id="pages.creation-date" />
                                                     </p>
-                                                    <p>{moment(this.props.displayed.createdDate).format("DD/MM/YYYY")}</p>
+                                                    <p>{moment(this.props.displayed.creationDate).format("DD/MM/YYYY")}</p>
 
-
-                                                    <p className="text-muted text-small mb-2">
-                                                        <IntlMessages id="pages.publish-date" />
-                                                    </p>
-                                                    <p>{moment(this.props.displayed.beginPublishDateTime).format("DD/MM/YYYY HH:mm")}</p>
-
-
-                                                    <p className="text-muted text-small mb-2">
-                                                        <IntlMessages id="pages.end-publish" />
-                                                    </p>
-                                                    <p>{moment(this.props.displayed.endPublishDateTime).format("DD/MM/YYYY HH:mm")}</p>
                                                 </CardBody>
                                             </Card>
                                         </Colxx>
 
                                         <Colxx xxs="12" lg="8">
-                                            <Card className="mb-4">
-                                                <CardBody>
-
-                                                    <h2 className="font-weight-bold">{this.props.displayed.title}</h2>
-                                                    <br />
-                                                    <p>{ReactHtmlParser(this.props.displayed.content)}</p>
-                                                    <br />
-                                                </CardBody>
-                                            </Card>
                                             <Row className="icon-cards-row mb-2">
                                                 <Colxx sm="3">
                                                     <IconCard
@@ -275,49 +210,6 @@ class DetailsPages extends Component {
                                             </Row>
                                         </Colxx>
                                     </Row>
-                                </TabPane>
-                                <TabPane tabId="2">
-                                    <Card className="mb-4">
-                                        <CardBody>
-                                            <p className="text-muted text-small mb-6">
-                                                <IntlMessages id="pages.file" />
-                                            </p>
-                                            {this.props.displayed.attachedFileDocumentId ?
-
-                                                <Row className="icon-cards-row mb-2">
-                                                    <Colxx sm="3">
-                                                        <a target="_blank" href={urlPath + "/api/pdfs/" + this.props.displayed.attachedFileDocumentId + "/view"}>
-                                                            <IconCard
-                                                                icon="iconsminds-file"
-                                                                title="pages.download"
-                                                                classNameText="text-small"
-                                                            />
-                                                        </a>
-
-                                                    </Colxx>
-                                                </Row>
-                                                :
-
-                                                <p className="text-one mb-6">
-                                                    <IntlMessages id="pages.no-attached-file" />
-                                                </p>
-                                            }
-
-                                            <p className="text-muted text-small mb-2">
-                                                <IntlMessages id="pages.videos" />
-                                            </p>
-                                            {this.props.displayed.videoFileDocumentId ?
-                                                <video width={'100%'} height="50%" controls>
-                                                    <source src={urlPath + "/api/videos/" + this.props.displayed.videoFileDocumentId + "/view"} type="video/mp4" />
-                                                Your browser does not support the video tag.
-                                            </video>
-                                                :
-                                                <p className="text-one mb-6">
-                                                    <IntlMessages id="pages.no-video-file" />
-                                                </p>
-                                            }
-                                        </CardBody>
-                                    </Card>
                                 </TabPane>
                             </TabContent>
                         </Colxx>

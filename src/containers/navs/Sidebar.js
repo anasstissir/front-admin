@@ -512,7 +512,6 @@ const mapStateToProps = ({ menu, authUser }) => {
     menuHiddenBreakpoint,
     menuClickCount,
     selectedMenuHasSubItems,
-    role:  authUser.user && authUser.user.principal.authorities[0].authority
   };
 };
 export default withRouter(

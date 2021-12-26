@@ -20,12 +20,11 @@ class Login extends Component {
   }
 
   onUserLogin = (values) => {
-    this.props.history.push("/app")
-    // if (!this.props.loading) {
-    //   if (values.email !== "" && values.password !== "") {
-    //     this.props.loginUser(values, this.props.history);
-    //   }
-    // }
+    if (!this.props.loading) {
+      if (values.email !== "" && values.password !== "") {
+        this.props.loginUser(values, this.props.history);
+      }
+    }
   }
 
   validateEmail = (value) => {
@@ -188,7 +187,7 @@ class Login extends Component {
 }
 const mapStateToProps = ({ authUser }) => {
   const { user, loading, error } = authUser;
-  return { user, loading, error: error.data && error.data.detail };
+  return { user, loading, error: error?.data && error?.data?.detail };
 };
 
 export default connect(

@@ -203,11 +203,6 @@ export default class Articles extends Component {
                                                                             <EditIcon fontSize="small" color="primary" />
                                                                         </IconButton>
                                                                     </h2>
-                                                                    <span>
-                                                                        <Badge color="outline-primary text-small mb-4 mr-1" pill>
-                                                                            {this.props.displayed.status}
-                                                                        </Badge>
-                                                                    </span>
                                                                     <br />
                                                                     <p>{ReactHtmlParser(this.props.displayed.content)}</p>
                                                                     <br />
@@ -281,54 +276,6 @@ export default class Articles extends Component {
                                                                             />
                                                                         </Colxx>
                                                                     </Row>
-                                                                </CardBody>
-                                                            </Colxx>
-                                                        </Row>
-                                                    </TabPane>
-                                                    <TabPane tabId="2">
-                                                        <Row>
-                                                            <CardBody>
-                                                                <Row className="icon-cards-row mb-2">
-                                                                    <Colxx sm="6">
-                                                                        <IconCard
-                                                                            icon="iconsminds-calendar-4"
-                                                                            title="pages.start-publication"
-                                                                            classNameText="text-small"
-                                                                            value={moment(this.props.displayed.beginPublishDateTime).format("DD/MM/YYYY")}
-                                                                        />
-                                                                    </Colxx>
-                                                                    <Colxx sm="6">
-                                                                        <IconCard
-                                                                            icon="iconsminds-calendar-4"
-                                                                            title="pages.end-publication"
-                                                                            classNameText="text-small"
-                                                                            value={moment(this.props.displayed.endPublishDateTime).format("DD/MM/YYYY")}
-                                                                        />
-                                                                    </Colxx>
-                                                                    <Colxx sm="6">
-                                                                        <IconCard
-                                                                            icon="iconsminds-calendar-4"
-                                                                            title="pages.start-publication"
-                                                                            classNameText="text-small"
-                                                                            value={moment(this.props.displayed.startDateTime).format("DD/MM/YYYY HH:mm")}
-                                                                        />
-                                                                    </Colxx>
-                                                                    <Colxx sm="6">
-                                                                        <IconCard
-                                                                            icon="iconsminds-calendar-4"
-                                                                            title="pages.end-publication"
-                                                                            classNameText="text-small"
-                                                                            value={moment(this.props.displayed.endDateTime).format("DD/MM/YYYY HH:mm")}
-                                                                        />
-                                                                    </Colxx>
-                                                                </Row>
-                                                            </CardBody>
-                                                        </Row>
-                                                    </TabPane>
-                                                    <TabPane tabId="3">
-                                                        <Row>
-                                                            <Colxx sm="12">
-                                                                <CardBody>
                                                                 </CardBody>
                                                             </Colxx>
                                                         </Row>

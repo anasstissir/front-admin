@@ -84,14 +84,11 @@ export default function MediaControlCard(props) {
                     <div className="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
                         <NavLink to={`${props.location.pathname}/detail?comm_id=${props.item.id}`} className="w-40 w-sm-100">
                             <p className="list-item-heading mb-1 truncate">
-                                {props.item.title}
+                                {props.item.name || props.item.title}
                             </p>
                         </NavLink>
                         <p className="mb-1 text-muted text-small w-15 w-sm-100">
-                            {moment(props.item.startDate).format("DD/MM/YYYY")}
-                        </p>
-                        <p className="mb-1 text-muted text-small w-15 w-sm-100">
-                            {moment(props.item.endDate).format("DD/MM/YYYY")}
+                            {moment(props.item.creationDate).format("DD/MM/YYYY")}
                         </p>
                         <p className="mb-1 text-muted text-small w-15 w-sm-100">
                         {props.item?.club?.name}

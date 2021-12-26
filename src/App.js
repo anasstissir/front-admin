@@ -4,7 +4,8 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect
+  Redirect,
+  withRouter
 } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import AppLocale from './lang';
@@ -12,6 +13,8 @@ import ColorSwitcher from './components/common/ColorSwitcher';
 import NotificationContainer from './components/common/react-notifications/NotificationContainer';
 import { isMultiColorActive, isDemo } from './constants/defaultValues';
 import { getDirection } from './helpers/Utils';
+import PublicRoute from './routes/PublicRoute';
+import PrivateRoute from './routes/PrivateRoute';
 
 const ViewMain = React.lazy(() =>
   import(/* webpackChunkName: "views" */ './views')
@@ -31,7 +34,7 @@ const AuthRoute = ({ component: Component, authUser, ...rest }) => {
     <Route
       {...rest}
       render={props =>
-        1 === 1 ? (
+        authUser ? (
           <Component {...props} />
         ) : (
           <Redirect
@@ -62,7 +65,7 @@ class App extends Component {
 
 
   render() {
-    const { locale, loginUser } = this.props;
+    const { locale, loginUser, isAuthenticated } = this.props;
     const currentAppLocale = AppLocale[locale];
 
     return (
@@ -74,29 +77,28 @@ class App extends Component {
           <React.Fragment>
             <NotificationContainer />
             {isMultiColorActive && <ColorSwitcher />}
-            
+
             <Suspense fallback={<div className="loading" />}>
               <Router>
                 <Switch>
-                  <AuthRoute
-                    path="/app"
-                    authUser={loginUser || localStorage.getItem("user")}
-                    component={ViewApp}
-                  />
-                  <Route
+                  <PublicRoute
                     path="/user"
-                    render={props => <ViewUser {...props} />}
-                  />
-                  <Route
-                    path="/error"
-                    exact
-                    render={props => <ViewError {...props} />}
-                  />
-                  <Route
+                    isAuthenticated={isAuthenticated}
+                  >
+                    <ViewUser {...this.props} />
+                  </PublicRoute>
+                  <PrivateRoute
+                    path="/app"
+                    isAuthenticated={isAuthenticated}
+                  >
+                    <ViewApp {...this.props} />
+                    </PrivateRoute>
+                  <PrivateRoute
                     path="/"
-                    exact
-                    render={props => <ViewMain {...props} />}
-                  />
+                    isAuthenticated={isAuthenticated}
+                  >
+                    <ViewMain {...this.props} />
+                  </PrivateRoute>
                   <Redirect to="/error" />
                 </Switch>
               </Router>
@@ -111,6 +113,7 @@ class App extends Component {
 const mapStateToProps = state => {
   const { locale } = state.settings;
   return {
+    isAuthenticated: state.authUser.user,
     loginUser: state.authUser.user,
     token: state.authUser.user,
     locale

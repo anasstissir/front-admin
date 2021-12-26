@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import UserLayout from '../../layout/UserLayout';
 
 const Login = React.lazy(() =>
@@ -56,4 +56,4 @@ const User = ({ match }) => {
   );
 };
 
-export default User;
+export default withRouter(User);
