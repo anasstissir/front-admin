@@ -1,14 +1,14 @@
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-function call(meta, headers) {
+function call(meta) {
   const method = meta.API_METHOD ? meta.API_METHOD : 'GET';
   switch (method) {
     case 'GET':
       return axios.get('http://localhost:8080/' + meta.API_CALL, meta.API_PAYLOAD)
     case 'POST':
-      return axios.post('http://localhost:8080/' + meta.API_CALL, meta.API_PAYLOAD, headers)
+      return axios.post('http://localhost:8080/' + meta.API_CALL, meta.API_PAYLOAD)
     case 'PUT':
-      return axios.put('http://localhost:8080/' + meta.API_CALL, meta.API_PAYLOAD, headers)
+      return axios.put('http://localhost:8080/' + meta.API_CALL, meta.API_PAYLOAD)
     case 'DELETE':
       return axios.delete('http://localhost:8080/' + meta.API_CALL)
   }
@@ -16,15 +16,12 @@ function call(meta, headers) {
 
 export default store => next => action => {
   const state = store.getState();
-  const token = state.authUser.user && state.authUser.user['id_token'] ? 'Bearer ' +
-    state.authUser.user['id_token'] : 'eyJhbGciOiJIUzUxMiJ9';
-  // axios.defaults.headers.common['Authorization'] = token;
+  const token = state.authUser.user && state.authUser.user['token'] ? 'Bearer ' +
+    state.authUser.user['token'] : 'eyJhbGciOiJIUzUxMiJ9';
+   axios.defaults.headers.common['Authorization'] = token;
   if (action.meta && action.meta.API_CALL) {
-    let headers = {}
-    if (action.meta.FORM_DATA) {
-      headers = { "Content-Type": "multipart/form-data" }
-    }
-    call(action.meta, headers)
+    
+    call(action.meta)
       .then((res) => {
         store.dispatch({
           type: action.meta.API_SUCCESS,
